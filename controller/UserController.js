@@ -37,7 +37,8 @@ router.get("/", async (req, res) => {
     allUsers.push({
       userId: user.id,
       email: user.data().email,
-      name: user.data().name
+      name: user.data().name,
+      categories: user.data().categories
     })
   })
 

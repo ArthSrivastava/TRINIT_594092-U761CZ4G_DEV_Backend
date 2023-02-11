@@ -24,6 +24,12 @@ router.post("/register", async (req, res) => {
 
 
 router.get("/", async (req, res) => {
+  const userId = req.query.loggedUserId
+  const userRef = db.collection("users").doc(userId)
+  const user = await userRef.get()
+  const userCategories = user.data().categories
+  const sortedCampaigns = []
+
   const docRef = await db.collection("NgoCampaigns").get()
   const allCampaigns = []
   // console.log(docRef.data)
@@ -33,7 +39,15 @@ router.get("/", async (req, res) => {
       ...campaign.data()
     })
   })
-  res.json(allCampaigns)
+
+  allCampaigns.forEach((campaign) => {
+    if(userCategories.includes(campaign.category)) {
+      sortedCampaigns.splice(0, 0, campaign)
+    } else {
+      sortedCampaigns.push(campaign)
+    }
+  })
+  res.json(sortedCampaigns)
 })
 
 router.get("/getCampaignById", async (req, res) => {
