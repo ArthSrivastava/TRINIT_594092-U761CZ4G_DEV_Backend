@@ -8,9 +8,9 @@ router.post("/register", async (req, res) => {
   const docRef = db.collection("users").doc();
   const bodyData = {
     name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-    tagId: req.body.tagId,
+    id: req.body.id,
+    categories: req.body.categories,
+    type: "user"
   };
 
   await docRef.set(bodyData);

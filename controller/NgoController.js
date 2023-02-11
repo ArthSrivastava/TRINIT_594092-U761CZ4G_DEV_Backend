@@ -3,19 +3,21 @@ import db from "../firebase.js";
 import express from "express";
 const router = express.Router();
 
-router.post("/register", (req, res) => {
+router.post("/register", async (req, res) => {
   console.log("Inside register");
   const ngoData = {
+    name: req.body.name,
     cause: req.body.cause,
     vision: req.body.vision,
     impact: req.body.impact,
     ownerUserId: req.body.ownerUserId,
+    type: "NGO"
   };
   const ngoRef = db.collection("NgoData").doc();
-  ngoRef.set(ngoData);
+  await ngoRef.set(ngoData);
   res.json({
     message: "Ngo registered successfully",
-  });
+  },);
 });
 
 //get ngo data by id

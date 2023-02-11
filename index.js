@@ -5,6 +5,7 @@ import TagsController from "./controller/TagsController.js";
 import CampaignController from "./controller/CampaignController.js";
 import NgoController from "./controller/NgoController.js";
 // const login = require("./login")
+// const functions = require("firebase-functions")
 
 dotenv.config();
 const app = express();
@@ -23,3 +24,5 @@ app.use("/campaigns", CampaignController);
 app.listen(port, () => {
   console.log("Now listening to " + port);
 });
+
+// exports.api = functions.https.onRequest(app)
