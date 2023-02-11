@@ -33,4 +33,20 @@ router.get("/", async (req, res) => {
     })
   })
 })
+
+router.get("/search", async (req, res) => {
+  let searchQuery = req.query.tagName
+  const docRef = db.collection("NgoCampaigns")
+  const queryRef = await docRef.where('tagId', '==', searchQuery).get()
+  
+  const allCampaigns = []
+  queryRef.forEach((campaign) => {
+    allCampaigns.push(campaign.data())
+  })
+  // console.log(queryRef)
+
+  res.json({
+    data: allCampaigns
+  })
+})
 export default router;
