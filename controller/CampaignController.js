@@ -2,10 +2,10 @@ import db from "../firebase.js";
 import express from "express";
 const router = express.Router();
 
-router.post("/register", (req, res) => {
+router.post("/register", async (req, res) => {
   const campaignData = {
-    campaignTitle: req.body.title,
-    tagId: req.body.category,
+    title: req.body.title,
+    category: req.body.category,
     description: req.body.description,
     targetAmount: req.body.targetAmount,
     startDate: req.body.startDate,
@@ -16,7 +16,7 @@ router.post("/register", (req, res) => {
   };
 
   const campaignRef = db.collection("NgoCampaigns").doc();
-  campaignRef.set(campaignData);
+  await campaignRef.set(campaignData);
   res.json({
     message: "Campaign registered successfully!",
   });
@@ -36,9 +36,9 @@ router.get("/", async (req, res) => {
 })
 
 router.get("/search", async (req, res) => {
-  let searchQuery = req.query.tagName
+  let searchQuery = req.query.category
   const docRef = db.collection("NgoCampaigns")
-  const queryRef = await docRef.where('tagId', '==', searchQuery).get()
+  const queryRef = await docRef.where('category', '==', searchQuery).get()
   
   const allCampaigns = []
   queryRef.forEach((campaign) => {
