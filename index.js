@@ -1,28 +1,25 @@
-import express  from "express";
-import register from "./register/index.js"
-import dotenv from "dotenv"
-import tags from "./tags/index.js"
-import ngoRegister from "./registerNGO/index.js"
-import campaignRegister from "./registerCampaign/index.js"
-import getNgoById from "./getNgoById/index.js"
+import express from "express";
+import UserController from "./controller/UserController.js";
+import dotenv from "dotenv";
+import TagsController from "./controller/TagsController.js";
+import CampaignController from "./controller/CampaignController.js";
+import NgoController from "./controller/NgoController.js";
 // const login = require("./login")
 
-dotenv.config()
-const app = express()
-const port = 3000
+dotenv.config();
+const app = express();
+const port = 3000;
 
 app.use(express.json());
 app.get("/", (req, res) => {
-    res.send("Hello world")
-})
+  res.send("Hello world");
+});
 
-app.use("/register", register)
-app.use("/tags", tags)
-app.use("/ngo/register", ngoRegister)
-app.use("/campaign/register", campaignRegister)
-app.use("/ngo", getNgoById)
+app.use("/users", UserController);
+app.use("/tags", TagsController);
+app.use("/ngos", NgoController);
+app.use("/campaigns", CampaignController);
 
 app.listen(port, () => {
-    console.log("Now listening to " + port)
-})
-
+  console.log("Now listening to " + port);
+});
