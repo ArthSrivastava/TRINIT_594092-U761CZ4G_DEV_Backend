@@ -30,9 +30,18 @@ router.get("/", async (req, res) => {
   docRef.forEach((campaign) => {
     allCampaigns.push({
       id: campaign.id,
-      data: campaign.data()
+      ...campaign.data()
     })
   })
+  res.json(allCampaigns)
+})
+
+router.get("/getCampaignById", async (req, res) => {
+  const docRef = db.collection("NgoCampaigns").doc(req.query.campaignId)
+  const campaign = await docRef.get()
+
+  res.json(campaign.data())
+
 })
 
 router.get("/search", async (req, res) => {
@@ -42,12 +51,13 @@ router.get("/search", async (req, res) => {
   
   const allCampaigns = []
   queryRef.forEach((campaign) => {
-    allCampaigns.push(campaign.data())
+    allCampaigns.push({
+      id: campaign.id,
+      ...campaign.data()
+    })
   })
   // console.log(queryRef)
 
-  res.json({
-    data: allCampaigns
-  })
+  res.json(allCampaigns)
 })
 export default router;
