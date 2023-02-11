@@ -4,14 +4,15 @@ const router = express.Router();
 
 router.post("/register", (req, res) => {
   const campaignData = {
-    campaignTitle: req.body.campaignData,
-    tagId: req.body.tagId,
-    descript: req.body.description,
+    campaignTitle: req.body.title,
+    tagId: req.body.category,
+    description: req.body.description,
     targetAmount: req.body.targetAmount,
     startDate: req.body.startDate,
     endDate: req.body.endDate,
     country: req.body.country,
-    currencyType: req.body.currencyType,
+    currency: req.body.currency,
+    creatorId: req.body.creatorId
   };
 
   const campaignRef = db.collection("NgoCampaigns").doc();
