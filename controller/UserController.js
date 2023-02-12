@@ -5,7 +5,7 @@ const router = express.Router();
 router.post("/register", async (req, res) => {
   console.log("Inside register");
 
-  const docRef = db.collection("users").doc();
+  const docRef = db.collection("users").doc(req.body.id);
   const bodyData = {
     name: req.body.name,
     id: req.body.id,

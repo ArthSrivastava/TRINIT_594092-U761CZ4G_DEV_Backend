@@ -13,7 +13,7 @@ router.post("/register", async (req, res) => {
     ownerUserId: req.body.ownerUserId,
     type: "NGO"
   };
-  const ngoRef = db.collection("NgoData").doc();
+  const ngoRef = db.collection("NgoData").doc(req.body.ownerUserId);
   await ngoRef.set(ngoData);
   res.json({
     message: "Ngo registered successfully",
